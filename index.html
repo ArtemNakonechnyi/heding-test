@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>GrowthBook A/B Test</title>
+    <script src="https://unpkg.com/@growthbook/growthbook/dist/bundles/index.min.js"></script>
+  </head>
+  <body>
+    <h1 id="main-header">Loading...</h1>
+    <br />
+    <button id="btn" style="width: 150px; color: black; padding: 10px">
+      Click me
+    </button>
+    <img
+      src="img/icon-dots.svg"
+      type="image/svg+xml"
+      alt=""
+      style="width: 14px"
+    />
+
+    <script>
+      const gb = new growthbook.GrowthBook({
+        apiHost: "https://cdn.growthbook.io",
+        clientKey: "sdk-1r1Bmi47RTwRH6jH",
+        enableDevMode: true,
+        attributes: {
+          id: "user-" + Math.floor(Math.random() * 100000),
+        },
+      });
+
+      gb.loadFeatures()
+        .then(() => {
+          const variation =
+            gb.feature("headline-test").value || "Заголовок по умолчанию";
+
+          // document.getElementById("main-header").textContent = variation;
+          document.getElementById("main-header").textContent =
+            variation === "A"
+              ? "hello this is A heading"
+              : "hello this is B heading";
+
+          document.getElementById("btn").style.background =
+            variation === "A" ? "blue" : "red";
+
+          console.log("Показан вариант:", variation);
+        })
+        .catch((err) => {
+          console.error("Ошибка загрузки фич:", err);
+        });
+    </script>
+  </body>
+</html>
