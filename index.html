@@ -36,6 +36,15 @@
     />
 
     <script>
+      const gb = new growthbook.GrowthBook({
+        apiHost: "https://cdn.growthbook.io",
+        clientKey: "sdk-1r1Bmi47RTwRH6jH",
+        enableDevMode: true,
+        attributes: {
+          id: "user-" + Math.floor(Math.random() * 100000),
+        },
+      });
+
       gb.loadFeatures()
         .then(() => {
           const variation =
