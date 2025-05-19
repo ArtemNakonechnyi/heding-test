@@ -36,15 +36,6 @@
     />
 
     <script>
-      const gb = new growthbook.GrowthBook({
-        apiHost: "https://cdn.growthbook.io",
-        clientKey: "sdk-1r1Bmi47RTwRH6jH",
-        enableDevMode: true,
-        attributes: {
-          id: "user-" + Math.floor(Math.random() * 100000),
-        },
-      });
-
       gb.loadFeatures()
         .then(() => {
           const variation =
@@ -60,6 +51,17 @@
             variation === "A" ? "blue" : "red";
 
           console.log("Показан вариант:", variation);
+
+          //////////
+          document.getElementById("btn").addEventListener("click", () => {
+            gtag("event", "button_click", {
+              event_category: "engagement",
+              event_label: variation,
+              value: 1,
+            });
+            console.log("Клик отправлен для варианта:", variation);
+          });
+          ///////
         })
         .catch((err) => {
           console.error("Ошибка загрузки фич:", err);
