@@ -64,8 +64,8 @@
           //////////
           document.getElementById("btn").addEventListener("click", () => {
             gtag("event", "button_click", {
-              event_category: "engagement",
-              event_label: variation,
+              event_category: "A/B Test",
+              event_label: "headline-" + variation,
               value: 1,
             });
             console.log("Клик отправлен для варианта:", variation);
